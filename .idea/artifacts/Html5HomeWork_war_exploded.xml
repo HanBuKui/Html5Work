@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Html5HomeWork:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Html5HomeWork_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Html5HomeWork/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Html5HomeWork" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

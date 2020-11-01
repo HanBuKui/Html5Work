@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <script src="./js/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+
+<div class="container" id="app">
+    <div class="page-header">
+        <h2 class=" text-center text-primary">{{nowTime}}</h2>
+    </div>
+
+    <form action="">
+        <div class=" form-group">
+            <input v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" type="text" class="form-control" />
+
+            <div id="searchOptBox">
+                <input type="button" value="baidu"  @click="showOpt($event)" id="baiduOpt">
+                <input type="button" value="biying"  @click="showOpt($event)" id="biyingOpt">
+                <input type="button" value="google"  @click="showOpt($event)" id="gooleOpt">
+            </div>
+
+            <div class="list-group">
+                <div class="list-group-item list-group-item-text"
+                    v-for="(item,index) in arr" :class="{'list-group-item-info':index==listIndex}" @click="click($event)">
+                    {{item}}
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script src="./js/main.js"></script>
+
+</body>
+
+
+
+</html>
