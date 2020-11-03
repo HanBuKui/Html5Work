@@ -5,6 +5,10 @@
     <title>index</title>
     <script src="./js/vue.js"></script>
     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <!-- 百度地图api接口 -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=AkX2YdRLriECx3izsLddnHECWY8f4VeW"></script>
+    <!-- 官网提供的 axios 在线地址 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 
@@ -32,7 +36,36 @@
         </div>
     </form>
 
+    <div>
+        <p>城市</p>
+        <div>{{locationProvince}}</div>
+        <div @change>{{locationCity}}</div>
+    </div>
+
+    <!--天气-->
+    <div class="wrap" >
+        <ul class="weather_list">
+
+            <li v-for=" item in weatherList">
+                <div class="info_type"><span class="iconfont">{{ item.type }}</span></div>
+                <div class="info_temp">
+                    <b>{{ item.low }}</b>
+                    ~
+                    <b>{{ item.high }}</b>
+                </div>
+                <div class="info_date"><span>{{ item.date }}</span></div>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+
 </div>
+
+
+
 
 <script src="./js/main.js"></script>
 

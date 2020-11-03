@@ -5,7 +5,11 @@ var app = new Vue({
         arr:[],//用于储存关键词的搜索词条
         listIndex:-1, //设置初始索引，数组从0开始，因此初始成-1
         nowTime:'',    // 当前时间
-        searchOpt: 'baidu'  //搜索类型（baidu，biying，goole）
+        searchOpt: 'baidu',  //搜索类型（baidu，biying，goole）
+        locationProvince:"正在定位所在省",
+        locationCity:"正在定位所在市",
+        weatherList:[]  //天气情况
+
     },
     methods:{
         //这个函数我们在input标签输入关键词的时候不断的给百度服务器发送请求获取搜索词条，并且不断的复制给data中的数组arr
@@ -110,10 +114,31 @@ var app = new Vue({
         showOpt(event){
             this.searchOpt = event.target.value;
             console.log(this.searchOpt);
+        },
+
+
+        //获取当前城市
+        getLocation(){
+            const geolocation = new BMap.Geolocation();
+            var _this = this;
+            geolocation.getCurrentPosition(function getinfo(position) {
+                let city = position.address.city;
+                let province = position.address.province;
+                _this.locationProvince = province;
+                _this.locationCity = city;
+            },function (e) {
+                _this.locationCity = "定位失败"
+            },{provider: 'baidu'});
+
+            console.log(this.locationCity);
         }
+
+
     },
+    //methods结束--------------------------------------------
 
     mounted() {
+        this.getLocation();  //触发获取城市的方法
         this.currentTime();
     },
     // 销毁定时器
@@ -121,6 +146,23 @@ var app = new Vue({
         if (this.getDate) {
             console.log("销毁定时器")
             clearInterval(this.getDate); // 在Vue实例销毁前，清除时间定时器
+        }
+    },
+    //定位改变时调用查询天气函数
+    /*因为若获取地址后就去查询天气提交的是“正在查询天气”*/
+    watch:{
+        //搜索天气 监听locationCity
+        locationCity(){
+            var that=this;
+            axios.get("http://wthrcdn.etouch.cn/weather_mini?city="+this.locationCity).then(
+                function(response){
+                    console.log(response.data.data.forecast);
+                    that.weatherList=response.data.data.forecast;
+                }
+            ).catch(function(err){
+
+            })
+            console.log("watch调用");
         }
     }
 
