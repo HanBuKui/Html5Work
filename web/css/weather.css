@@ -1,0 +1,75 @@
+/*body{
+    font-family:'Microsoft YaHei';
+}*/
+
+body{
+    background-image: url("../images/background/forest.jpg");
+    background-size:100%;
+}
+
+#weatherPic{
+    position: fixed;
+    left: 2%;
+    top: 65%;
+}
+
+.wrap{
+    position: fixed;
+    left:60px;
+    width:100%;
+    /*background:#fff;*/
+    /*top:0;*/
+    top: 68%;
+    float: left;
+}
+
+.wrap b{
+    padding:0 10px;
+}
+
+.weather_list{
+    height:200px;
+    text-align: left;
+    font-size:0px;
+}
+.weather_list li{
+    display:inline-block;
+    width:170px;
+    height:200px;
+    padding:0 10px;
+    overflow: hidden;
+    position: relative;
+    background-size: 1px 130px;
+}
+
+.weather_list li:last-child{
+    background:none;
+}
+
+.info_date{
+    width:100%;
+    height:40px;
+    line-height:40px;
+    color:#999;
+    font-size:14px;
+    left:0px;
+    bottom:0px;
+    margin-top: 15px;
+}
+.info_date b{
+    float: left;
+    margin-left:15px;
+}
+
+.info_type span{
+    color:#fda252;
+    font-size:30px;
+    line-height:80px;
+}
+.info_temp{
+    font-size:14px;
+    color:#fda252;
+}
+.info_temp b{
+    font-size:13px;
+}

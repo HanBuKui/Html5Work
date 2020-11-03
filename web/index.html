@@ -4,30 +4,37 @@
     <meta charset="UTF-8" />
     <title>index</title>
     <script src="./js/vue.js"></script>
+    <!--Vue 要实现异步加载需要使用到 vue-resource 库-->
     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
     <!-- 百度地图api接口 -->
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=AkX2YdRLriECx3izsLddnHECWY8f4VeW"></script>
     <!-- 官网提供的 axios 在线地址 -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./css/weather.css" >
+    <link rel="stylesheet" type="text/css" href="./css/search.css" >
 </head>
 <body>
 
 <div class="container" id="app">
-    <div class="page-header">
+    <div class="page-header" style="text-align: center">
         <h2 class=" text-center text-primary">{{nowTime}}</h2>
     </div>
 
-    <form action="">
-        <div class=" form-group">
-            <input v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" type="text" class="form-control" />
+    <form action="" style="text-align: center">
+        <div class=" form-group" >
 
-            <div id="searchOptBox">
+           <!-- @blur 是当元素失去焦点时所触发的事件
+            @focus是元素获取焦点时所触发的事件-->
+            <input id="searchText" v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" @focus="showOptBox()" @blur="hideOptBox()" type="text" class="form-control" />
+
+            <div id="searchOptBox" v-show="OptBox">
                 <input type="button" value="baidu"  @click="showOpt($event)" id="baiduOpt">
                 <input type="button" value="biying"  @click="showOpt($event)" id="biyingOpt">
                 <input type="button" value="google"  @click="showOpt($event)" id="gooleOpt">
             </div>
 
-            <div class="list-group">
+            <div class="list-group" style="text-align: left; margin-left: 43.5%;">
                 <div class="list-group-item list-group-item-text"
                     v-for="(item,index) in arr" :class="{'list-group-item-info':index==listIndex}" @click="click($event)">
                     {{item}}
@@ -37,30 +44,34 @@
     </form>
 
     <div>
-        <p>城市</p>
-        <div>{{locationProvince}}</div>
-        <div @change>{{locationCity}}</div>
-    </div>
+
+    <img id="weatherPic" src="./images/weather.png" style="width: 50px; height: 50px;" @mouseover="lookWeather()" @mouseout="hideWeather()">
 
     <!--天气-->
-    <div class="wrap" >
-        <ul class="weather_list">
+    <div class="wrap" v-show="showWeather">
 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <b>{{locationProvince}}</b>
+        <b>{{locationCity}}</b>
+
+        <ul class="weather_list">
             <li v-for=" item in weatherList">
-                <div class="info_type"><span class="iconfont">{{ item.type }}</span></div>
+                <div class="info_type">
+                    <span class="iconfont">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.type }}</span>
+                </div>
                 <div class="info_temp">
                     <b>{{ item.low }}</b>
                     ~
                     <b>{{ item.high }}</b>
                 </div>
-                <div class="info_date"><span>{{ item.date }}</span></div>
+                <div class="info_date">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</span>
+                </div>
             </li>
-
         </ul>
-
     </div>
 
-
+    </div>
 
 </div>
 

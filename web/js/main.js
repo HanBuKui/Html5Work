@@ -8,8 +8,9 @@ var app = new Vue({
         searchOpt: 'baidu',  //搜索类型（baidu，biying，goole）
         locationProvince:"正在定位所在省",
         locationCity:"正在定位所在市",
-        weatherList:[]  //天气情况
-
+        weatherList:[],  //天气情况
+        showWeather: false,   //是否显示天气情况
+        OptBox: false   //是否显示搜索引擎选项
     },
     methods:{
         //这个函数我们在input标签输入关键词的时候不断的给百度服务器发送请求获取搜索词条，并且不断的复制给data中的数组arr
@@ -131,6 +132,20 @@ var app = new Vue({
             },{provider: 'baidu'});
 
             console.log(this.locationCity);
+        },
+        //显示天气信息
+        lookWeather(){
+            this.showWeather = true;
+        },
+        //隐藏天气信息
+        hideWeather(){
+            this.showWeather = false;
+        },
+        showOptBox(){
+            this.OptBox = true;
+        },
+        hideOptBox(){
+            this.OptBox = false;
         }
 
 

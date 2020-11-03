@@ -1,0 +1,30 @@
+#searchText:focus{
+    width: 600px;
+}
+
+#searchText{
+    width:200px;
+    height:30px;
+    border-radius:42px;
+    border:2px solid #324B4E;
+    background:#99999920;
+    transition:0.3s linear;
+    /*linear:元素样式从初始状态过渡到终止状态的速度是恒速*/
+    outline:none;
+}
+
+#searchOptBox input{
+    border-radius: 40px;
+    width: 80px;
+    height: 40px;
+    margin-right: 20px;
+    margin-top: 15px;
+    border: #99999950;
+    background-color: #99999950;
+    /*下面的代码解决button点击后有蓝色框框的问题*/
+    outline:none;
+}
+
+#searchOptBox input:focus{
+    background-color: #999999;
+}
