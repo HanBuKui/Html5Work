@@ -16,7 +16,6 @@ var app = new Vue({
         //这个函数我们在input标签输入关键词的时候不断的给百度服务器发送请求获取搜索词条，并且不断的复制给data中的数组arr
         keyup(event){
             //如果我按的是上下键，那么就不发送请求了
-            console.log(event);
             if(event.keyCode==38||event.keyCode==40||event.keyCode==13) return ;
             var url= "http://suggestion.baidu.com/su"
             this.$http.jsonp(url,{
@@ -40,36 +39,17 @@ var app = new Vue({
         //如果点击某一行的空白处，则点击事件中的event.target.innerText代表关键词
         //大家可以通过console.log(event)来查看关键词所在的位置
         click(event){
-            console.log(event);
-
+            event.preventDefault();
             if(event.target.data!=undefined){
                 this.wd=event.target.data;
-                if(this.searchOpt == "baidu"){
-                    window.open("https://www.baidu.com/s?wd="+this.wd);
-                }else if(this.searchOpt == "biying"){
-                    window.open("https://cn.bing.com/search?q="+this.wd);
-                }else{  // goole
-                    window.open("https://www.google.com/search?q="+this.wd);
-                }
-
             }else if(event.target.innerText!=undefined){
-
                 this.wd=event.target.innerText;
-                if(this.searchOpt == "baidu"){
-                    window.open("https://www.baidu.com/s?wd="+this.wd);
-                }else if(this.searchOpt == "biying"){
-                    window.open("https://cn.bing.com/search?q="+this.wd);
-                }else{  // goole
-                    window.open("https://www.google.com/search?q="+this.wd);
-                }
-
             }
         },
         //监听键盘的事件
         //如果按down，则增加当前listIndex+1，因此arr[this.listIndex]就能代表当前的词条
         //我们通过对listIndex的修改来得到当前词条在arr中的索引，然后就可以得到词条的具体信息，然后发送请求了
         keydown(event){
-            console.log(event);
             //下键：40 上键：38
             if(event.keyCode==38){
                 //按的上键
@@ -78,6 +58,16 @@ var app = new Vue({
                     this.listIndex=this.arr.length-1;
                 }
                 this.wd=this.arr[this.listIndex];
+
+                /*let ls = document.getElementsByClassName("list-group-item");
+                for (let index in ls){
+                    ls[index].style.fontSize = "15px";
+                }
+
+                //将选中区域改变样式进行选定
+                var listNum = "list-group-item"+this.listIndex
+                document.getElementById(listNum).style.fontSize="20px";*/
+
             }
             else if(event.keyCode==40){
                 //说明你按的是下键
@@ -86,6 +76,17 @@ var app = new Vue({
                     this.listIndex=0;
                 }
                 this.wd=this.arr[this.listIndex];
+
+
+                /*let ls = document.getElementsByClassName("list-group-item");
+                for (let index in ls){
+                    ls[index].style.fontSize = "15px";
+                }
+
+                //将选中区域改变样式进行选定
+                var listNum = "list-group-item"+this.listIndex
+                document.getElementById(listNum).style.fontSize="20px";*/
+
             }else if(event.keyCode==13){
                 //如果你按的是enter，那么就跳转到百度搜索结果
                 if(this.searchOpt == "baidu"){
@@ -103,7 +104,7 @@ var app = new Vue({
         currentTime() {
             setInterval(this.getDate, 500);
         },
-        getDate: function() {
+        getDate() {
             var _this = this;
             let hh = new Date().getHours();
             let mf =
@@ -112,26 +113,35 @@ var app = new Vue({
                     : new Date().getMinutes();
             _this.nowTime = hh + ":" + mf;
         },
+        //选择搜索引擎
         showOpt(event){
             this.searchOpt = event.target.value;
-            console.log(this.searchOpt);
+            // 按钮样式改变
+            document.getElementById("searchText").focus();
+            let a1= document.getElementById("baiduOpt");
+            let a2= document.getElementById("biyingOpt");
+            let a3= document.getElementById("gooleOpt");
+            a1.style.backgroundColor = "#99999950";
+            a2.style.backgroundColor = "#99999950";
+            a3.style.backgroundColor = "#99999950";
+            if(this.searchOpt == "baidu"){
+                a1.style.backgroundColor ="#999999";
+            }else if(this.searchOpt == "biying"){
+                a2.style.backgroundColor = "#999999";
+            }else{  // goole
+                a3.style.backgroundColor = "#999999";
+            }
         },
-
-
         //获取当前城市
         getLocation(){
             const geolocation = new BMap.Geolocation();
             var _this = this;
             geolocation.getCurrentPosition(function getinfo(position) {
-                let city = position.address.city;
-                let province = position.address.province;
-                _this.locationProvince = province;
-                _this.locationCity = city;
+                _this.locationCity = position.address.city;
+                _this.locationProvince = position.address.province;
             },function (e) {
                 _this.locationCity = "定位失败"
             },{provider: 'baidu'});
-
-            console.log(this.locationCity);
         },
         //显示天气信息
         lookWeather(){
@@ -141,11 +151,16 @@ var app = new Vue({
         hideWeather(){
             this.showWeather = false;
         },
+        //点击search框时
         showOptBox(){
             this.OptBox = true;
         },
         hideOptBox(){
             this.OptBox = false;
+        },
+        // 解决点击搜索引擎按钮input(text)失去focus的问题
+        preventBlur(event){
+            event.preventDefault();
         }
 
 
@@ -166,7 +181,7 @@ var app = new Vue({
     //定位改变时调用查询天气函数
     /*因为若获取地址后就去查询天气提交的是“正在查询天气”*/
     watch:{
-        //搜索天气 监听locationCity
+        //搜索天气 监听locationCity变量(变化就执行)
         locationCity(){
             var that=this;
             axios.get("http://wthrcdn.etouch.cn/weather_mini?city="+this.locationCity).then(

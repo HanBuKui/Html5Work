@@ -14,7 +14,8 @@
     <link rel="stylesheet" type="text/css" href="./css/weather.css" >
     <link rel="stylesheet" type="text/css" href="./css/search.css" >
 </head>
-<body>
+
+<body onload="document.getElementById('baiduOpt').style.backgroundColor ='#999999'">
 
 <div class="container" id="app">
     <div class="page-header" style="text-align: center">
@@ -25,51 +26,54 @@
         <div class=" form-group" >
 
            <!-- @blur 是当元素失去焦点时所触发的事件
-            @focus是元素获取焦点时所触发的事件-->
-            <input id="searchText" v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" @focus="showOptBox()" @blur="hideOptBox()" type="text" class="form-control" />
+            @focus是元素获取焦点时所触发的事件
+            autocomplete默认为on其含义代表让浏览器自动记录之前输入的值
+            -->
+            <input id="searchText"  v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" @focus="showOptBox()"
+                   @blur="hideOptBox()" type="text" class="form-control" autocomplete="off" placeholder="Search"/>
 
             <div id="searchOptBox" v-show="OptBox">
-                <input type="button" value="baidu"  @click="showOpt($event)" id="baiduOpt">
-                <input type="button" value="biying"  @click="showOpt($event)" id="biyingOpt">
-                <input type="button" value="google"  @click="showOpt($event)" id="gooleOpt">
+                <input type="button" value="baidu"  @click="showOpt($event)" id="baiduOpt" @mousedown="preventBlur($event)" >
+                <input type="button" value="biying"  @click="showOpt($event)" id="biyingOpt" @mousedown="preventBlur($event)">
+                <input type="button" value="google"  @click="showOpt($event)" id="gooleOpt" @mousedown="preventBlur($event)">
             </div>
-
-            <div class="list-group" style="text-align: left; margin-left: 43.5%;">
-                <div class="list-group-item list-group-item-text"
-                    v-for="(item,index) in arr" :class="{'list-group-item-info':index==listIndex}" @click="click($event)">
-                    {{item}}
+            <div class="list-group" v-show="OptBox">
+                <div class="list-group-item"
+                    v-for="(item,index) in arr" :id="'list-group-item'+index" @mousedown="click($event)">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item}}
                 </div>
             </div>
+
         </div>
     </form>
 
     <div>
 
-    <img id="weatherPic" src="./images/weather.png" style="width: 50px; height: 50px;" @mouseover="lookWeather()" @mouseout="hideWeather()">
+        <img id="weatherPic" src="./images/weather.png" style="width: 50px; height: 50px;" @mouseover="lookWeather()" @mouseout="hideWeather()">
 
-    <!--天气-->
-    <div class="wrap" v-show="showWeather">
+        <!--天气-->
+        <div class="wrap" v-show="showWeather">
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <b>{{locationProvince}}</b>
-        <b>{{locationCity}}</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>{{locationProvince}}</b>
+            <b>{{locationCity}}</b>
 
-        <ul class="weather_list">
-            <li v-for=" item in weatherList">
-                <div class="info_type">
-                    <span class="iconfont">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.type }}</span>
-                </div>
-                <div class="info_temp">
-                    <b>{{ item.low }}</b>
-                    ~
-                    <b>{{ item.high }}</b>
-                </div>
-                <div class="info_date">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</span>
-                </div>
-            </li>
-        </ul>
-    </div>
+            <ul class="weather_list">
+                <li v-for=" item in weatherList">
+                    <div class="info_type">
+                       <span class="iconfont">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.type }}</span>
+                    </div>
+                    <div class="info_temp">
+                        <b>{{ item.low }}</b>
+                        ~
+                        <b>{{ item.high }}</b>
+                    </div>
+                    <div class="info_date">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
     </div>
 

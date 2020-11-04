@@ -5,9 +5,11 @@
 #searchText{
     width:200px;
     height:30px;
+    text-align: center;
     border-radius:42px;
     border:2px solid #324B4E;
     background:#99999920;
+    text-align: center;
     transition:0.3s linear;
     /*linear:元素样式从初始状态过渡到终止状态的速度是恒速*/
     outline:none;
@@ -25,6 +27,12 @@
     outline:none;
 }
 
-#searchOptBox input:focus{
-    background-color: #999999;
+.list-group{
+    width: 600px;
+    background-color: #99999940;
+    text-align: left;
+    margin-left: 26%;
+    border-radius: 16px;
+    font-weight: normal;
+    font-size: 15px;
 }
