@@ -13,9 +13,31 @@
 
     <link rel="stylesheet" type="text/css" href="./css/weather.css" >
     <link rel="stylesheet" type="text/css" href="./css/search.css" >
+			<link href="css/change.css" rel="stylesheet" />
 </head>
 
-<body onload="document.getElementById('baiduOpt').style.backgroundColor ='#999999'">
+<body>
+<!--侧栏页面设计-->
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<p href="#">壁纸库</p>
+			<a href="#">
+				<img class="changeImages" src="images/background/壁纸1.jpg" />
+			</a>
+			<a href="#">
+				<img class="changeImages" src="images/background/壁纸2.jpg" />
+			</a>
+			<a href="#">
+				<img class="changeImages" src="images/background/壁纸3.jpg" />
+			</a>
+			<a href="#">
+				<img class="changeImages" src="images/background/壁纸4.jpg" />
+			</a>
+		</div>
+
+		<script src="js/change.js"></script>
+
+        <span style="font-size:16px; cursor:pointer" onclick="openNav()">&#9776; 更换壁纸</span>
 
 <div class="container" id="app">
     <div class="page-header" style="text-align: center">
@@ -33,9 +55,9 @@
                    @blur="hideOptBox()" type="text" class="form-control" autocomplete="off" placeholder="Search"/>
 
             <div id="searchOptBox" v-show="OptBox">
-                <input type="button" value="baidu"  @click="showOpt($event)" id="baiduOpt" @mousedown="preventBlur($event)" >
-                <input type="button" value="biying"  @click="showOpt($event)" id="biyingOpt" @mousedown="preventBlur($event)">
-                <input type="button" value="google"  @click="showOpt($event)" id="gooleOpt" @mousedown="preventBlur($event)">
+                <input type="button" value="baidu"  @click="showOpt('baidu')" id="baiduOpt" @mousedown="preventBlur($event)" >
+                <input type="button" value="bing"  @click="showOpt('bing')" id="bingOpt" @mousedown="preventBlur($event)">
+                <input type="button" value="google"  @click="showOpt('google')" id="googleOpt" @mousedown="preventBlur($event)">
             </div>
             <div class="list-group" v-show="OptBox">
                 <div class="list-group-item"
@@ -54,25 +76,29 @@
         <!--天气-->
         <div class="wrap" v-show="showWeather">
 
+            <div class="wrap_info">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <b>{{locationProvince}}</b>
-            <b>{{locationCity}}</b>
+                <b>{{locationProvince}}</b>
+                <b>{{locationCity}}</b>
 
-            <ul class="weather_list">
-                <li v-for=" item in weatherList">
-                    <div class="info_type">
-                       <span class="iconfont">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.type }}</span>
-                    </div>
-                    <div class="info_temp">
-                        <b>{{ item.low }}</b>
-                        ~
-                        <b>{{ item.high }}</b>
-                    </div>
-                    <div class="info_date">
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</span>
-                    </div>
-                </li>
-            </ul>
+                <ul class="weather_list">
+                    <li v-for=" item in weatherList">
+                        <div class="info_type">
+                            <span class="iconfont">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.type }}</span>
+                        </div>
+                        <div class="info_temp">
+                            <b>{{ item.low }}</b>
+                            ~
+                            <b>{{ item.high }}</b>
+                        </div>
+                        <div class="info_date">
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</span>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
         </div>
 
     </div>

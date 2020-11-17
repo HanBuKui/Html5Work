@@ -1,5 +1,11 @@
 #searchText:focus{
     width: 600px;
+    background-color: #f1f1f1;
+
+}
+
+#searchText:hover{
+    width: 600px;
 }
 
 #searchText{
@@ -36,3 +42,5 @@
     font-weight: normal;
     font-size: 15px;
 }
+
+

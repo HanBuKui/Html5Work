@@ -1,0 +1,8 @@
+body{
+    filter: url(blur.svg#blur);/* FireFox, Chrome, Opera */
+    -webkit-filter: blur(5px);/* Chrome, Opera */
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=5, MakeShadow=false);
+}

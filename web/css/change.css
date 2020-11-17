@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+.sidenav {
+	height: 100%;
+	width: 0;
+	/*原始宽度为0*/
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+/*侧边栏选项选择器*/
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidenav p {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidenav img {
+    border: 1px solid #ddd;
+	width: 150px;
+    padding: 3px;
+    /* border-radius: 4px; */
+	/* display: inline-block; */
+}
+/*侧栏标签和关闭按钮光标的效果*/
+.sidenav a:hover,
+.offcanvas a:focus {
+	color: #f1f1f1;
+}
+
+/*侧栏和关闭按钮的位置选择器*/
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+

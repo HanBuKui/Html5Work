@@ -5,7 +5,7 @@ var app = new Vue({
         arr:[],//用于储存关键词的搜索词条
         listIndex:-1, //设置初始索引，数组从0开始，因此初始成-1
         nowTime:'',    // 当前时间
-        searchOpt: 'baidu',  //搜索类型（baidu，biying，goole）
+        searchOpt: 'baidu',  //搜索类型（baidu，bing，google）
         locationProvince:"正在定位所在省",
         locationCity:"正在定位所在市",
         weatherList:[],  //天气情况
@@ -91,7 +91,7 @@ var app = new Vue({
                 //如果你按的是enter，那么就跳转到百度搜索结果
                 if(this.searchOpt == "baidu"){
                     window.open("https://www.baidu.com/s?wd="+this.wd);
-                }else if(this.searchOpt == "biying"){
+                }else if(this.searchOpt == "bing"){
                     window.open("https://cn.bing.com/search?q="+this.wd);
                 }else{  // goole
                     window.open("https://www.google.com/search?q="+this.wd);
@@ -114,19 +114,19 @@ var app = new Vue({
             _this.nowTime = hh + ":" + mf;
         },
         //选择搜索引擎
-        showOpt(event){
-            this.searchOpt = event.target.value;
+        showOpt(type){
+            console.log(type);
+            this.searchOpt = type;
             // 按钮样式改变
-            document.getElementById("searchText").focus();
-            let a1= document.getElementById("baiduOpt");
-            let a2= document.getElementById("biyingOpt");
-            let a3= document.getElementById("gooleOpt");
+            let a1= document.getElementById('baiduOpt');
+            let a2= document.getElementById('bingOpt');
+            let a3= document.getElementById('googleOpt');
             a1.style.backgroundColor = "#99999950";
             a2.style.backgroundColor = "#99999950";
             a3.style.backgroundColor = "#99999950";
             if(this.searchOpt == "baidu"){
                 a1.style.backgroundColor ="#999999";
-            }else if(this.searchOpt == "biying"){
+            }else if(this.searchOpt == "bing"){
                 a2.style.backgroundColor = "#999999";
             }else{  // goole
                 a3.style.backgroundColor = "#999999";
@@ -174,7 +174,6 @@ var app = new Vue({
     // 销毁定时器
     beforeDestroy: function() {
         if (this.getDate) {
-            console.log("销毁定时器")
             clearInterval(this.getDate); // 在Vue实例销毁前，清除时间定时器
         }
     },
@@ -186,13 +185,11 @@ var app = new Vue({
             var that=this;
             axios.get("http://wthrcdn.etouch.cn/weather_mini?city="+this.locationCity).then(
                 function(response){
-                    console.log(response.data.data.forecast);
                     that.weatherList=response.data.data.forecast;
                 }
             ).catch(function(err){
 
             })
-            console.log("watch调用");
         }
     }
 
