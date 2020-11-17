@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>index</title>
+    <title>初墨起始页</title>
     <script src="./js/vue.js"></script>
     <!--Vue 要实现异步加载需要使用到 vue-resource 库-->
     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
@@ -13,105 +13,107 @@
 
     <link rel="stylesheet" type="text/css" href="./css/weather.css" >
     <link rel="stylesheet" type="text/css" href="./css/search.css" >
-			<link href="css/change.css" rel="stylesheet" />
+    <link href="css/change.css" rel="stylesheet" />
+   <link href="css/basic.css" rel="stylesheet" type="text/css">
+
 </head>
 
-<body>
-<!--侧栏页面设计-->
-		<div id="mySidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-			<p href="#">壁纸库</p>
-			<a href="#">
-				<img class="changeImages" src="images/background/壁纸1.jpg" />
-			</a>
-			<a href="#">
-				<img class="changeImages" src="images/background/壁纸2.jpg" />
-			</a>
-			<a href="#">
-				<img class="changeImages" src="images/background/壁纸3.jpg" />
-			</a>
-			<a href="#">
-				<img class="changeImages" src="images/background/壁纸4.jpg" />
-			</a>
-		</div>
+<body style="padding: 0px">
 
-		<script src="js/change.js"></script>
+        <div class="bg bg-blur" id="bgimg"></div>
 
-        <span style="font-size:16px; cursor:pointer" onclick="openNav()">&#9776; 更换壁纸</span>
+        <div class="content">
+            <!--侧栏页面设计-->
+		    <div id="mySidenav" class="sidenav">
+			    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			    <p href="#">壁纸库</p>
+			    <a href="#">
+				    <img class="changeImages" src="images/background/壁纸1.jpg" />
+			    </a>
+			    <a href="#">
+			    	<img class="changeImages" src="images/background/壁纸2.jpg" />
+			    </a>
+			    <a href="#">
+			    	<img class="changeImages" src="images/background/壁纸3.jpg" />
+			    </a>
+			    <a href="#">
+			    	<img class="changeImages" src="images/background/壁纸4.jpg" />
+			    </a>
+		    </div>
 
-<div class="container" id="app">
-    <div class="page-header" style="text-align: center">
-        <h2 class=" text-center text-primary">{{nowTime}}</h2>
-    </div>
+		    <script src="js/change.js"></script>
 
-    <form action="" style="text-align: center">
-        <div class=" form-group" >
+            <span  id="changeSpan" onclick="openNav()">&#9776; 更换壁纸</span>
 
-           <!-- @blur 是当元素失去焦点时所触发的事件
-            @focus是元素获取焦点时所触发的事件
-            autocomplete默认为on其含义代表让浏览器自动记录之前输入的值
-            -->
-            <input id="searchText"  v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" @focus="showOptBox()"
-                   @blur="hideOptBox()" type="text" class="form-control" autocomplete="off" placeholder="Search"/>
+            <div class="container" id="app">
 
-            <div id="searchOptBox" v-show="OptBox">
-                <input type="button" value="baidu"  @click="showOpt('baidu')" id="baiduOpt" @mousedown="preventBlur($event)" >
-                <input type="button" value="bing"  @click="showOpt('bing')" id="bingOpt" @mousedown="preventBlur($event)">
-                <input type="button" value="google"  @click="showOpt('google')" id="googleOpt" @mousedown="preventBlur($event)">
-            </div>
-            <div class="list-group" v-show="OptBox">
-                <div class="list-group-item"
-                    v-for="(item,index) in arr" :id="'list-group-item'+index" @mousedown="click($event)">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item}}
+<!--                点击text时引入此语句，背景毛玻璃化-->
+                <link rel="stylesheet" type="text/css" href="css/frosted.css" v-if="OptBox">
+
+                <div class="page-header" style="text-align: center; position: fixed; top: 0px; left: 575px;">
+                    <h2 class=" text-center text-primary">{{nowTime}}</h2>
+                </div>
+
+                <form action="" style="text-align: center">
+                    <div class=" form-group" >
+
+                    <!-- @blur 是当元素失去焦点时所触发的事件
+                    @focus是元素获取焦点时所触发的事件
+                    autocomplete默认为on其含义代表让浏览器自动记录之前输入的值
+                    -->
+                        <input id="searchText"  v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" @focus="showOptBox()"
+                            @blur="hideOptBox()" type="text" class="form-control" autocomplete="off" placeholder="Search"/>
+
+                        <div id="searchOptBox" v-show="OptBox">
+                            <input type="button" value="baidu"  @click="showOpt('baidu')" id="baiduOpt" @mousedown="preventBlur($event)" >
+                            <input type="button" value="bing"  @click="showOpt('bing')" id="bingOpt" @mousedown="preventBlur($event)">
+                            <input type="button" value="google"  @click="showOpt('google')" id="googleOpt" @mousedown="preventBlur($event)">
+                        </div>
+                        <div class="list-group" v-show="OptBox" id="lists">
+                            <div class="list-group-item"
+                                v-for="(item,index) in arr" :id="'list-group-item'+index" @mousedown="click($event)">
+                    &nbsp;&nbsp;&nbsp;&nbsp;           &nbsp;&nbsp;{{item}}
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+                <!--天气-->
+
+                <div>
+                    <img id="weatherPic" src="./images/weather.png" style="width: 50px; height: 50px;" @mouseover="lookWeather()" @mouseout="hideWeather()">
+
+                    <div class="wrap" v-show="showWeather">
+
+                        <div class="wrap_info">
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>{{locationProvince}}</b>
+                            <b>{{locationCity}}</b>
+
+                            <ul class="weather_list">
+                                <li v-for=" item in weatherList">
+                                    <div class="info_type">
+                                        <span class="iconfont">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.type }}</span>
+                                    </div>
+                                    <div class="info_temp">
+                                        <b>{{ item.low }}</b>
+                                        ~
+                                        <b>{{ item.high }}</b>
+                                    </div>
+                                    <div class="info_date">
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-        </div>
-    </form>
-
-    <div>
-
-        <img id="weatherPic" src="./images/weather.png" style="width: 50px; height: 50px;" @mouseover="lookWeather()" @mouseout="hideWeather()">
-
-        <!--天气-->
-        <div class="wrap" v-show="showWeather">
-
-            <div class="wrap_info">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>{{locationProvince}}</b>
-                <b>{{locationCity}}</b>
-
-                <ul class="weather_list">
-                    <li v-for=" item in weatherList">
-                        <div class="info_type">
-                            <span class="iconfont">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.type }}</span>
-                        </div>
-                        <div class="info_temp">
-                            <b>{{ item.low }}</b>
-                            ~
-                            <b>{{ item.high }}</b>
-                        </div>
-                        <div class="info_date">
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</span>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-
         </div>
 
-    </div>
-
-</div>
-
-
-
-
-<script src="./js/main.js"></script>
+        <script src="./js/main.js"></script>
 
 </body>
-
-
 
 </html>

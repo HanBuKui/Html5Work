@@ -1,5 +1,13 @@
 @charset "utf-8";
 
+#changeSpan{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	font-size:20px;
+	cursor:pointer;
+}
+
 .sidenav {
 	height: 100%;
 	width: 0;

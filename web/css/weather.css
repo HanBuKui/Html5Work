@@ -1,11 +1,3 @@
-/*body{
-    font-family:'Microsoft YaHei';
-}*/
-
-body{
-    background-size:100%;
-}
-
 #weatherPic{
     position: fixed;
     left: 2%;

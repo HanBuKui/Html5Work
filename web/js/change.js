@@ -14,16 +14,15 @@ window.onload = function() {
 
 	var imgs = document.getElementsByClassName("changeImages");
 	var lastimg = localStorage.getItem("img");
-	//console.log(lastimg);
-	document.body.style.background = "url(" + lastimg + ") no-repeat"; //通过js控制改变行内样式
-	document.body.style.backgroundSize = "100%";
+	document.getElementById('bgimg').style.background = "url(" + lastimg + ") no-repeat"; //通过js控制改变行内样式
+	document.getElementById('bgimg').style.backgroundSize = "100%";
 	for (var i = 0; i < imgs.length; i++) {
 
 		imgs[i].onclick = function() {
 			localStorage.setItem("img", this.src);
-			document.body.style.background = "url(" + this.src + ") no-repeat"; //通过js控制改变行内样式
+			document.getElementById('bgimg').style.background = "url(" + this.src + ") no-repeat"; //通过js控制改变行内样式
 		//	console.log(this.src)
-			document.body.style.backgroundSize = "100%";
+			document.getElementById('bgimg').style.backgroundSize = "100%";
 		}
 	}
 }

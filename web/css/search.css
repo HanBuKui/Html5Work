@@ -1,14 +1,25 @@
 #searchText:focus{
+    position: fixed;
+    top: 60px;
+    left: 305px;
     width: 600px;
     background-color: #f1f1f1;
 
 }
 
+
 #searchText:hover{
+    position: fixed;
+    top: 60px;
+    left: 305px;
     width: 600px;
 }
 
 #searchText{
+    position: fixed;
+    top: 60px;
+    left: 505px;
+
     width:200px;
     height:30px;
     text-align: center;
@@ -21,6 +32,11 @@
     outline:none;
 }
 
+#searchOptBox{
+    position: fixed;
+    top: 100px;
+    left: 465px;
+}
 #searchOptBox input{
     border-radius: 40px;
     width: 80px;
@@ -44,3 +60,8 @@
 }
 
 
+#lists{
+    position: fixed;
+    top: 180px;
+    left: -20px;
+}
